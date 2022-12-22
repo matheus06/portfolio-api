@@ -1,6 +1,6 @@
 # Portfolio API
 
-* https://matheus-portfolio-ui.azurewebsites.net/
+* https://matheus.azurewebsites.net/
 
 > This is my portfolio-api made in C# and .NET 7.
 
