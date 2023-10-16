@@ -1,5 +1,6 @@
 using Azure.Identity;
 using Microservice.Portfolio.Dto;
+using Microservice.Portfolio.Helpers.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Cosmos;
 
@@ -10,18 +11,20 @@ namespace Microservice.Portfolio.Controllers
     public class ContactController : ControllerBase
     {
         private readonly ILogger<ContactController> _logger;
+        private readonly IAzureHelper _azureHelper;
 
-        public ContactController(ILogger<ContactController> logger)
+        public ContactController(ILogger<ContactController> logger, IAzureHelper azureHelper)
         {
             _logger = logger;
+            _azureHelper = azureHelper;
         }
 
         [HttpPost(Name = "PostContact")]
         public async Task<IResult> Post(ContactRequest contactRequest)
         {
-            CosmosClient cosmosClient = new CosmosClient("https://portfolio-contact-form.documents.azure.com:443/", new DefaultAzureCredential());
-            Database database = cosmosClient.GetDatabase("portfolio-db");
-            Container container = database.GetContainer("portfolio-contact");
+            CosmosClient cosmosClient = new CosmosClient(_azureHelper.GetCosmosAccountEndpoint(), new DefaultAzureCredential());
+            Database database = cosmosClient.GetDatabase(_azureHelper.GetCosmosDatabase());
+            Container container = database.GetContainer(_azureHelper.GetCosmosContainer());
             var contact = new Contact
             {
                 id = Guid.NewGuid().ToString(),

@@ -1,3 +1,6 @@
+using Microservice.Portfolio.Helpers;
+using Microservice.Portfolio.Helpers.Abstractions;
+
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
@@ -7,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IAzureHelper, AzureHelper>();
 
 builder.Services.AddCors(options =>
 {
