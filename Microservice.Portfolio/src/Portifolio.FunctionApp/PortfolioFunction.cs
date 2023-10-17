@@ -3,12 +3,12 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Portifolio.FunctionApp.Dto;
+using Portifolio.FunctionApp.Helpers.Abstractions;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
@@ -17,16 +17,20 @@ using System.Threading.Tasks;
 
 namespace Portifolio.FunctionApp
 {
-    public static class PortfolioFunction
+    public class PortfolioFunction
     {
-        [FunctionName("resume")]
-        public static async Task<IActionResult> GetReumse([HttpTrigger(AuthorizationLevel.Function, "get", Route = "resume")] HttpRequest req,ILogger log)
-        {
-            string accountName = "blobportfolio";
-            string containerName = "portfolio";
 
-            // Construct the blob container endpoint from the arguments.
-            string containerEndpoint = string.Format("https://{0}.blob.core.windows.net/{1}", accountName, containerName);
+        private readonly IAzureHelper _azureHelper;
+
+        public PortfolioFunction(IAzureHelper azureHelper)
+        {
+            _azureHelper = azureHelper;
+        }
+
+        [FunctionName("resume")]
+        public IActionResult GetResume([HttpTrigger(AuthorizationLevel.Function, "get", Route = "resume")] HttpRequest req,ILogger log)
+        {
+            string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
             // Get a credential and create a service client object for the blob container.
             BlobContainerClient containerClient = new BlobContainerClient(new Uri(containerEndpoint), new DefaultAzureCredential());
@@ -35,20 +39,16 @@ namespace Portifolio.FunctionApp
             var listOfResume = new List<Resume>();
             foreach (BlobItem blob in containerClient.GetBlobs(traits: BlobTraits.Metadata, prefix: nameof(Resume).ToLower()))
             {
-                listOfResume.Add(new Resume() { Description = GetMetadataValue(blob, nameof(Resume.Description)), BlobUrl = $"{containerClient.Uri}/{blob.Name}" });
+                listOfResume.Add(new Resume() { Description = _azureHelper.GetMetadataValue(blob, nameof(Resume.Description)), BlobUrl = $"{containerClient.Uri}/{blob.Name}" });
             }
 
             return new OkObjectResult(listOfResume);
         }
 
         [FunctionName("certifications")]
-        public static async Task<IActionResult> GetCertifications([HttpTrigger(AuthorizationLevel.Function, "get", Route = "certifications")] HttpRequest req, ILogger log)
+        public IActionResult GetCertifications([HttpTrigger(AuthorizationLevel.Function, "get", Route = "certifications")] HttpRequest req, ILogger log)
         {
-            string accountName = "blobportfolio";
-            string containerName = "portfolio";
-
-            // Construct the blob container endpoint from the arguments.
-            string containerEndpoint = string.Format("https://{0}.blob.core.windows.net/{1}", accountName, containerName);
+            string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
             // Get a credential and create a service client object for the blob container.
             BlobContainerClient containerClient = new BlobContainerClient(new Uri(containerEndpoint), new DefaultAzureCredential());
@@ -56,20 +56,16 @@ namespace Portifolio.FunctionApp
             var listOfCertifications = new List<Certification>();
             foreach (BlobItem blob in containerClient.GetBlobs(traits: BlobTraits.Metadata, prefix: nameof(Certification).ToLower()))
             {
-                listOfCertifications.Add(new Certification() { Name = GetMetadataValue(blob, nameof(Certification.Name)), ImageUrl = $"{containerClient.Uri}/{blob.Name}", BadgeUrl = GetMetadataValue(blob, nameof(Certification.BadgeUrl)) });
+                listOfCertifications.Add(new Certification() { Name = _azureHelper.GetMetadataValue(blob, nameof(Certification.Name)), ImageUrl = $"{containerClient.Uri}/{blob.Name}", BadgeUrl = _azureHelper.GetMetadataValue(blob, nameof(Certification.BadgeUrl)) });
             }
 
             return new OkObjectResult(listOfCertifications);
         }
 
         [FunctionName("technologies")]
-        public static async Task<IActionResult> GetTechnologies([HttpTrigger(AuthorizationLevel.Function, "get", Route = "technologies")] HttpRequest req, ILogger log)
+        public IActionResult GetTechnologies([HttpTrigger(AuthorizationLevel.Function, "get", Route = "technologies")] HttpRequest req, ILogger log)
         {
-            string accountName = "blobportfolio";
-            string containerName = "portfolio";
-
-            // Construct the blob container endpoint from the arguments.
-            string containerEndpoint = string.Format("https://{0}.blob.core.windows.net/{1}", accountName, containerName);
+            string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
             // Get a credential and create a service client object for the blob container.
             BlobContainerClient containerClient = new BlobContainerClient(new Uri(containerEndpoint), new DefaultAzureCredential());
@@ -77,16 +73,16 @@ namespace Portifolio.FunctionApp
             var listOfCertifications = new List<Technologies>();
             foreach (BlobItem blob in containerClient.GetBlobs(traits: BlobTraits.Metadata, prefix: nameof(Technologies).ToLower()))
             {
-                listOfCertifications.Add(new Technologies() { Name = GetMetadataValue(blob, nameof(Technologies.Name)), ImageUrl = $"{containerClient.Uri}/{blob.Name}" });
+                listOfCertifications.Add(new Technologies() { Name = _azureHelper.GetMetadataValue(blob, nameof(Technologies.Name)), ImageUrl = $"{containerClient.Uri}/{blob.Name}" });
             }
 
             return new OkObjectResult(listOfCertifications);
         }
 
-  
+
         [FunctionName("contact")]
         [return: SendGrid(ApiKey = "SendGridApiKey")]
-        public static async Task<SendGridMessage> PostContact([HttpTrigger(AuthorizationLevel.Function, "post", Route = "contact")] HttpRequest req, ILogger log)
+        public async Task<SendGridMessage> PostContact([HttpTrigger(AuthorizationLevel.Function, "post", Route = "contact")] HttpRequest req, ILogger log)
         {
             var content = await new StreamReader(req.Body).ReadToEndAsync();
             var contactRequest = JsonConvert.DeserializeObject<ContactRequest>(content);
@@ -101,14 +97,9 @@ namespace Portifolio.FunctionApp
         }
 
         [FunctionName("environment")]
-        public static async Task<IActionResult> GetEnvironment([HttpTrigger(AuthorizationLevel.Function, "get", Route = "environment")] HttpRequest req, ILogger log)
+        public IActionResult GetEnvironment([HttpTrigger(AuthorizationLevel.Function, "get", Route = "environment")] HttpRequest req, ILogger log)
         {
-           return new OkObjectResult("Powered By Azure Functions");
-        }
-
-        private static string? GetMetadataValue(BlobItem blob, string metadataKey)
-        {
-            return blob.Metadata.ContainsKey(metadataKey) ? blob.Metadata[metadataKey] : null;
+            return new OkObjectResult("Powered By Azure Functions");
         }
     }
 }
