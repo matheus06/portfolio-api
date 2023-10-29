@@ -14,7 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Configuration.AddAzureAppConfiguration(option =>
 {
-    option.Connect(new Uri(azureAppConfigurationConnectionString), new DefaultAzureCredential())
+    option.Connect(new Uri(builder.Configuration["AppConfig:Endpoint"]), new DefaultAzureCredential())
         .UseFeatureFlags();
 });
 
