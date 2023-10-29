@@ -17,6 +17,8 @@
         <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.31.2" />
         <PackageReference Include="Microsoft.NET.Build.Containers" Version="0.2.7" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="3.0.0" />
     </ItemGroup>
 
 </Project>

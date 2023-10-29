@@ -1,10 +1,12 @@
 using Microservice.Portfolio.Helpers;
 using Microservice.Portfolio.Helpers.Abstractions;
+using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
+builder.Services.AddFeatureManagement();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
