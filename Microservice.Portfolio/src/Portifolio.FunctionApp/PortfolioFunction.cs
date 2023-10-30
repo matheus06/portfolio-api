@@ -79,6 +79,23 @@ namespace Portifolio.FunctionApp
             return new OkObjectResult(listOfCertifications);
         }
 
+        [FunctionName("projects")]
+        public IActionResult GetProjects([HttpTrigger(AuthorizationLevel.Function, "get", Route = "projects")] HttpRequest req, ILogger log)
+        {
+            string containerEndpoint = _azureHelper.GetBlobContainerUri();
+
+            // Get a credential and create a service client object for the blob container.
+            BlobContainerClient containerClient = new BlobContainerClient(new Uri(containerEndpoint), new DefaultAzureCredential());
+
+            var listOfProjects= new List<Projects>();
+            foreach (BlobItem blob in containerClient.GetBlobs(traits: BlobTraits.Metadata, prefix: nameof(Projects).ToLower()))
+            {
+                listOfProjects.Add(new Projects() { Name = _azureHelper.GetMetadataValue(blob, nameof(Projects.Name)), ImageUrl = $"{containerClient.Uri}/{blob.Name}" });
+            }
+
+            return new OkObjectResult(listOfProjects);
+        }
+
 
         [FunctionName("contact")]
         [return: SendGrid(ApiKey = "SendGridApiKey")]
