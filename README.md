@@ -4,7 +4,6 @@
 
 > This is my portfolio-api made in C# and .NET 7.
 
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Build And Deploy Status
@@ -18,7 +17,8 @@
 ![architeture](/architeture/portfolio.png)
 
 To see the UI app please go to this repo:
-* https://github.com/matheus06/portfolio-ui
+
+* <https://github.com/matheus06/portfolio-ui>
 
 ## Technologies
 
@@ -30,9 +30,12 @@ To see the UI app please go to this repo:
 * Azure Blob Storage
 * Azure Cosmos DB (No SQL)
 * Azure API Management
+* Azure App Configuration
+* Azure Feature Manager
 * Managed Identities for Azure Resources
 * Github Actions
 * Docker
+* Terraform
 
 ## Assign Cosmos DB Built-in Data Contributor Role to your Managed Identity
 
@@ -45,7 +48,8 @@ To see the UI app please go to this repo:
 ```
 
 Read more:
-* https://learn.microsoft.com/en-us/azure/cosmos-db/how-to-setup-rbac
+
+* <https://learn.microsoft.com/en-us/azure/cosmos-db/how-to-setup-rbac>
 
 ## Azurite
 
@@ -57,4 +61,5 @@ Read more:
 ```
 
 Read more:
-* https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio
+
+* <https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio>
