@@ -31,7 +31,7 @@ namespace Microservice.Portfolio.Controllers
             var containerEndpoint = _azureHelper.GetBlobContainerUri();
 
             // Get a credential and create a service client object for the blob container.
-            BlobContainerClient containerClient = new(new Uri(containerEndpoint), new DefaultAzureCredential());
+            BlobContainerClient containerClient = new BlobContainerClient(new Uri(containerEndpoint), new DefaultAzureCredential());
 
             var listOfProjects = new List<Projects>();
             foreach (BlobItem blob in containerClient.GetBlobs(traits: BlobTraits.Metadata, prefix: nameof(Projects).ToLower()))
