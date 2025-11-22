@@ -17,15 +17,10 @@ using System.Threading.Tasks;
 
 namespace Portifolio.FunctionApp
 {
-    public class PortfolioFunction
+    public class PortfolioFunction(IAzureHelper azureHelper)
     {
 
-        private readonly IAzureHelper _azureHelper;
-
-        public PortfolioFunction(IAzureHelper azureHelper)
-        {
-            _azureHelper = azureHelper;
-        }
+        private readonly IAzureHelper _azureHelper = azureHelper;
 
         [FunctionName("resume")]
         public IActionResult GetResume([HttpTrigger(AuthorizationLevel.Function, "get", Route = "resume")] HttpRequest req,ILogger log)
@@ -33,7 +28,7 @@ namespace Portifolio.FunctionApp
             string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
             // Get a credential and create a service client object for the blob container.
-            BlobContainerClient containerClient = new BlobContainerClient(new Uri(containerEndpoint), new DefaultAzureCredential());
+            BlobContainerClient containerClient = new(new Uri(containerEndpoint), new DefaultAzureCredential());
 
 
             var listOfResume = new List<Resume>();
@@ -51,7 +46,7 @@ namespace Portifolio.FunctionApp
             string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
             // Get a credential and create a service client object for the blob container.
-            BlobContainerClient containerClient = new BlobContainerClient(new Uri(containerEndpoint), new DefaultAzureCredential());
+            BlobContainerClient containerClient = new(new Uri(containerEndpoint), new DefaultAzureCredential());
 
             var listOfCertifications = new List<Certification>();
             foreach (BlobItem blob in containerClient.GetBlobs(traits: BlobTraits.Metadata, prefix: nameof(Certification).ToLower()))
@@ -68,7 +63,7 @@ namespace Portifolio.FunctionApp
             string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
             // Get a credential and create a service client object for the blob container.
-            BlobContainerClient containerClient = new BlobContainerClient(new Uri(containerEndpoint), new DefaultAzureCredential());
+            BlobContainerClient containerClient = new(new Uri(containerEndpoint), new DefaultAzureCredential());
 
             var listOfCertifications = new List<Technologies>();
             foreach (BlobItem blob in containerClient.GetBlobs(traits: BlobTraits.Metadata, prefix: nameof(Technologies).ToLower()))
@@ -85,7 +80,7 @@ namespace Portifolio.FunctionApp
             string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
             // Get a credential and create a service client object for the blob container.
-            BlobContainerClient containerClient = new BlobContainerClient(new Uri(containerEndpoint), new DefaultAzureCredential());
+            BlobContainerClient containerClient = new(new Uri(containerEndpoint), new DefaultAzureCredential());
 
             var listOfProjects= new List<Projects>();
             foreach (BlobItem blob in containerClient.GetBlobs(traits: BlobTraits.Metadata, prefix: nameof(Projects).ToLower()))

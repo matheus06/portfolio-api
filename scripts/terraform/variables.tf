@@ -1,16 +1,24 @@
 
-variable "service_plan_name" {
+variable "webb_app_service_plan_name" {
   type = string
 }
-
+variable "function_service_plan_name" {
+  type = string
+}
 variable "resource_group_name" {
   type = string
 }
-
-variable "app_name" {
+variable "ui_app_name" {
   type = string
 }
 
+variable "api_app_name" {
+  type = string
+}
+
+variable "function_app_name" {
+  type = string
+}
 variable "registry_url" {
   type = string
 }
@@ -23,10 +31,20 @@ variable "registry_password" {
   type = string
 }
 
-variable "image_name" {
+variable "ui_image_name" {
+  type = string
+}
+
+variable "api_image_name" {
   type = string
 }
 
 variable "location" {
+  type = string
+}
+variable "subscription_id" {
+  type = string
+}
+variable "tenant_id" {
   type = string
 }

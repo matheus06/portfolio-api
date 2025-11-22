@@ -22,7 +22,7 @@ namespace Microservice.Portfolio.Controllers
         [HttpPost(Name = "PostContact")]
         public async Task<IResult> Post(ContactRequest contactRequest)
         {
-            CosmosClient cosmosClient = new CosmosClient(_azureHelper.GetCosmosAccountEndpoint(), new DefaultAzureCredential());
+            CosmosClient cosmosClient = new(_azureHelper.GetCosmosAccountEndpoint(), new DefaultAzureCredential());
             Database database = cosmosClient.GetDatabase(_azureHelper.GetCosmosDatabase());
             Container container = database.GetContainer(_azureHelper.GetCosmosContainer());
             var contact = new Contact
