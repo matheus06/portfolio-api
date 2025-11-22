@@ -1,7 +1,7 @@
 name: Build and Deploy Azure Function App (API)
 
 env:
-  AZURE_FUNCTIONAPP_NAME: matheus-portfolio-function
+  AZURE_FUNCTIONAPP_NAME: matheus-portfolio-function-v2
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './Microservice.Portfolio/src/Portifolio.FunctionApp/'
   DOTNET_VERSION: '8.0.x'
 

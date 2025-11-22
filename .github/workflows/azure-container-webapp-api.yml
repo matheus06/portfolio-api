@@ -1,7 +1,7 @@
 name: Build and Deploy Azure Web App (API)
 
 env:
-  AZURE_WEBAPP_NAME: matheus-portfolio-api
+  AZURE_WEBAPP_NAME: matheus-portfolio-api-v2
 
 on:
   push:
