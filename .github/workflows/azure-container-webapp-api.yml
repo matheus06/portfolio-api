@@ -2,7 +2,6 @@ name: Build and Deploy Azure Web App (API)
 
 env:
   AZURE_WEBAPP_NAME: matheus-portfolio-api-v2
-  DOTNET_VERSION: '8.0.x'
 
 on:
   push:
