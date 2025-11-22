@@ -129,6 +129,19 @@ resource "azurerm_role_assignment" "ui_storage_reader" {
   principal_id         = azurerm_linux_web_app.webappapi.identity[0].principal_id
 }
 
+# Look up existing App Configuration
+data "azurerm_app_configuration" "appconfig" {
+  name                = var.shared_app_configuration_name
+  resource_group_name = var.shared_rg_name
+}
+
+# Create the role assignment for the web app to access the configuration account
+resource "azurerm_role_assignment" "api_configuration_reader" {
+  scope                = data.azurerm_app_configuration.appconfig.id
+  role_definition_name = "App Configuration Data Reader"
+  principal_id         = azurerm_linux_web_app.webappapi.identity[0].principal_id
+}
+
 
 # Create the az function
 resource "azurerm_linux_function_app" "functionapi" {

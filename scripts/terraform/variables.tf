@@ -48,3 +48,10 @@ variable "subscription_id" {
 variable "tenant_id" {
   type = string
 }
+variable "shared_app_configuration_name" {
+  type = string
+}
+
+variable "shared_rg_name" {
+  type = string
+}
