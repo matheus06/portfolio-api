@@ -513,7 +513,7 @@ resource "azurerm_api_management_api" "openapi" {
   revision            = "1"
   display_name        = "MicroservicePortfolio"
   service_url         = "https://matheus-portfolio-api-v2.azurewebsites.net"
-  path                = "portfolio"
+  path                = ""
   protocols           = ["https"]
 
   import {
@@ -533,6 +533,40 @@ resource "azurerm_api_management_api" "functionapi" {
   path                = "function"
   protocols           = ["https"]
   
+}
+
+# Create Api Management Product
+resource "azurerm_api_management_product" "portfolio_public" {
+  product_id          = "portfolio-public"  # URL-safe ID, shown in portal
+  api_management_name = azurerm_api_management.portfolioapimgmt.name
+  resource_group_name = azurerm_resource_group.rg.name
+
+  display_name        = "Portfolio Public"
+  description         = "Public APIs for the portfolio site."
+
+  # Whether a subscription key is required
+  subscription_required = false
+  approval_required     = false
+  published             = true
+  subscriptions_limit   = 0        # 0 = unlimited
+
+  terms = "By using this API you agree to the portfolio terms of service."
+}
+
+resource "azurerm_api_management_product_api" "portfolio_public_openapi" {
+  api_management_name = azurerm_api_management.portfolioapimgmt.name
+  resource_group_name = azurerm_resource_group.rg.name
+
+  product_id = azurerm_api_management_product.portfolio_public.product_id
+  api_name   = azurerm_api_management_api.openapi.name
+}
+
+resource "azurerm_api_management_product_api" "portfolio_public_functionapi" {
+  api_management_name = azurerm_api_management.portfolioapimgmt.name
+  resource_group_name = azurerm_resource_group.rg.name
+
+  product_id = azurerm_api_management_product.portfolio_public.product_id
+  api_name   = azurerm_api_management_api.functionapi.name
 }
 
 resource "azurerm_api_management_api_operation" "hello_get" {
@@ -611,7 +645,7 @@ resource "azurerm_api_management_policy" "portfolioapipolicy" {
         </cors>
         <choose>
             <when condition="@(context.Request.Url.Query.GetValueOrDefault("api") == "function")">
-                <set-backend-service base-url="https://portfolio-api.azure-api.net/function/" />
+                <set-backend-service base-url="https://portfolio-apim.azure-api.net/function/" />
             </when>
         </choose>
     </inbound>

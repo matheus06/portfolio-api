@@ -1,6 +1,6 @@
 # Portfolio API
 
-* https://matheus.azurewebsites.net/
+* <https://matheus.azurewebsites.net/>
 
 > This is my portfolio-api made in C# and .NET 7.
 
@@ -53,7 +53,7 @@ Read more:
 
 ## Azurite
 
-* The Azurite open-source emulator provides a free local environment for testing your Azure Blob, Queue Storage, and Table Storage applications. 
+* The Azurite open-source emulator provides a free local environment for testing your Azure Blob, Queue Storage, and Table Storage applications.
 * To run it locally with some files already in Azurite copy `azurite` repo folder to your local `c:/azurite`
 
 ```bash
@@ -63,3 +63,13 @@ Read more:
 Read more:
 
 * <https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio>
+
+## Terraform Commands
+
+```bash
+terraform state list     
+terraform state rm azurerm_resource_group.sharedrg    
+terraform force-unlock 4f20e52f-2d30-4924-aeef-62842df5d318   
+terraform plan
+terraform apply -auto-approve
+```
