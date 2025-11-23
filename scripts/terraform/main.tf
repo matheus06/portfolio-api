@@ -104,6 +104,7 @@ resource "azurerm_linux_web_app" "webappapi" {
     "CosmosConfiguration__AccountEndpoint" = azurerm_cosmosdb_account.portfolio_contact_form.endpoint
     "CosmosConfiguration__DatabaseName"    = azurerm_cosmosdb_sql_database.contact_db.name
     "CosmosConfiguration__ContainerName"   = azurerm_cosmosdb_sql_container.contact_container.name
+    "WEBSITES_PORT"   = "8080"
   }
 
   site_config { 
