@@ -48,6 +48,348 @@ resource "azurerm_storage_container" "container" {
   container_access_type = "private"
 }
 
+# Upload certAzure.png to the storage container
+resource "azurerm_storage_blob" "certAzure" {
+  name                   = "certifications/certAzure.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/certifications/certAzure.png"
+  content_type = "image/png"
+
+  metadata = {
+    badgeurl    = "https://www.credly.com/badges/bca16ceb-8c50-423c-b74d-84935fbd9588"
+    name        = "Azure Fundamentals"
+  }
+}
+
+
+# Upload certAzureDev.png to the storage container
+resource "azurerm_storage_blob" "certAzureDev" {
+  name                   = "certifications/certAzureDev.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/certifications/certAzureDev.png"
+  content_type = "image/png"
+
+  metadata = {
+    badgeurl    = "https://www.credly.com/badges/bc3f5b0b-46ec-4434-b1d9-e7982097f837"
+    name        = "Azure Developer Associate"
+  }
+}
+
+# Upload certAzureDev.png to the storage container
+resource "azurerm_storage_blob" "certAzureDevops" {
+  name                   = "certifications/certAzureDevops.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/certifications/certAzureDevops.png"
+  content_type = "image/png"
+
+  metadata = {
+    badgeurl    = "https://www.credly.com/badges/b672a24f-dda1-4115-931e-cc1b438a2f73"
+    name        = "Azure Devops"
+  }
+}
+
+# Upload certCKAD.png to the storage container
+resource "azurerm_storage_blob" "certCKAD" {
+  name                   = "certifications/certCKAD.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/certifications/certCKAD.png"
+  content_type = "image/png"
+
+  metadata = {
+    badgeurl    = "https://www.credly.com/badges/a76100da-c9d9-49c2-ace8-79978fdba020"
+    name        = "CKAD"
+  }
+}
+
+# Upload certExam480.png to the storage container
+resource "azurerm_storage_blob" "certExam480" {
+  name                   = "certifications/certExam480.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/certifications/certExam480.png"
+  content_type = "image/png"
+
+  metadata = {
+    badgeurl    = "https://www.credly.com/badges/be10d2bf-269e-4d80-8028-4a595f5912ec"
+    name        = "480"
+  }
+}
+
+# Upload certOracle.png to the storage container
+resource "azurerm_storage_blob" "certOracle" {
+  name                   = "certifications/certOracle.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/certifications/certOracle.png"
+  content_type = "image/png"
+
+  metadata = {
+    badgeurl    = "https://www.credly.com/badges/2f2524d9-a541-432f-b98c-5447b5c38b0a"
+    name        = "Oracle"
+  }
+}
+
+# Upload certScrum.png to the storage container
+resource "azurerm_storage_blob" "certScrum" {
+  name                   = "certifications/certScrum.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/certifications/certScrum.png"
+  content_type = "image/png"
+
+  metadata = {
+    badgeurl    = "https://www.credly.com/badges/35f4bb95-5a30-428e-8233-a6d37a73eb07"
+    name        = "Scrum"
+  }
+}
+
+# Upload ArticleArch.png to the storage container
+resource "azurerm_storage_blob" "article_arch" {
+  name                   = "projects/article_arch.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/projects/ArticleArch.png"
+  content_type = "image/png"
+}
+
+# Upload Pantryk8sArch.png to the storage container
+resource "azurerm_storage_blob" "pantry_k8s_arch" {
+  name                   = "projects/pantry_k8s_arch.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/projects/Pantryk8sArch.png"
+  content_type = "image/png"
+}
+
+# Upload PantryLocalArch.png to the storage container
+resource "azurerm_storage_blob" "pantry_local_arch" {
+  name                   = "projects/pantry_local_arch.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/projects/PantryLocalArch.png"
+  content_type = "image/png"
+}
+
+# Upload PortfolioArch.png to the storage container
+resource "azurerm_storage_blob" "portfolio_arch" {
+  name                   = "projects/portfolio_arch.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/projects/PortfolioArch.png"
+  content_type = "image/png"
+}
+
+# Upload angular.png to the storage container
+resource "azurerm_storage_blob" "angular_logo" {
+  name                   = "technologies/angular.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/angular.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "Angular"
+  }
+}
+
+# Upload aws.png to the storage container
+resource "azurerm_storage_blob" "aws_logo" {
+  name                   = "technologies/aws.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/aws.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "AWS"
+  }
+}
+
+# Upload azure.png to the storage container
+resource "azurerm_storage_blob" "azure_logo" {
+  name                   = "technologies/azure.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/azure.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "Azure"
+  }
+}
+
+# Upload csharp.png to the storage container
+resource "azurerm_storage_blob" "csharp_logo" {
+  name                   = "technologies/csharp.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/csharp.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "C#"
+  }
+}
+
+# Upload docker.png to the storage container
+resource "azurerm_storage_blob" "docker_logo" {
+  name                   = "technologies/docker.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/docker.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "Docker"
+  }
+}
+
+# Upload git.png to the storage container
+resource "azurerm_storage_blob" "git_logo" {
+  name                   = "technologies/git.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/git.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "Git"
+  }
+}
+
+# Upload helm.png to the storage container
+resource "azurerm_storage_blob" "helm_logo" {
+  name                   = "technologies/helm.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/helm.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "Helm"
+  }
+}
+
+# Upload k8s.png to the storage container
+resource "azurerm_storage_blob" "k8s_logo" {
+  name                   = "technologies/k8s.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/k8s.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "Kubernetes"
+  }
+}
+
+# Upload powershell.png to the storage container
+resource "azurerm_storage_blob" "powershell_logo" {
+  name                   = "technologies/powershell.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/powershell.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "PowerShell"
+  }
+}
+
+# Upload specflow.png to the storage container
+resource "azurerm_storage_blob" "specflow_logo" {
+  name                   = "technologies/specflow.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/specflow.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "SpecFlow"
+  }
+}
+
+# Upload sql.png to the storage container
+resource "azurerm_storage_blob" "sql_logo" {
+  name                   = "technologies/sql.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/sqlserver.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "SQL Server"
+  }
+}
+
+# Upload mongodb.png to the storage container
+resource "azurerm_storage_blob" "mongodb_logo" {
+  name                   = "technologies/mongodb.png"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/technologies/mongodb.png"
+  content_type = "image/png"
+
+  metadata = {
+    name        = "MongoDB"
+  }
+}
+
+# Upload Resume.pdf to the storage container
+resource "azurerm_storage_blob" "resume_pdf" {
+  name                   = "resume/resume.pdf"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/resume/resume.pdf"
+  content_type = "application/pdf"
+
+  metadata = {
+    description        = "View My Resume"
+  }
+}
+
+# Upload Competence.pdf to the storage container
+resource "azurerm_storage_blob" "competence_pdf" {
+  name                   = "resume/competence.pdf"
+  storage_account_name   = azurerm_storage_account.storageacc.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source = "${path.module}/assets/resume/competence.pdf"
+  content_type = "application/pdf"
+
+  metadata = {
+    description        = "View My Competence Dossier"
+  }
+}
+
 # Create the Linux App Service Plan for Azure Function
 resource "azurerm_service_plan" "functionserviceplan" {
   name                = var.function_service_plan_name
@@ -78,14 +420,6 @@ resource "azurerm_linux_web_app" "webapp" {
   site_config { 
     minimum_tls_version = "1.2"
     always_on = false
-  
-    application_stack {
-        docker_registry_username = var.registry_username
-        docker_registry_password = var.registry_password
-        docker_image_name   = var.ui_image_name
-        docker_registry_url = var.registry_url
-    }
-     
   }
 
 }
@@ -102,21 +436,15 @@ resource "azurerm_linux_web_app" "webappapi" {
     "BlobConfigurations__ContainerName"   = azurerm_storage_container.container.name
     "BlobConfigurations__ContainerUrl"    = "https://{0}.blob.core.windows.net/{1}"
     "CosmosConfiguration__AccountEndpoint" = azurerm_cosmosdb_account.portfolio_contact_form.endpoint
-    "CosmosConfiguration__DatabaseName"    = azurerm_cosmosdb_sql_database.contact_db.name
-    "CosmosConfiguration__ContainerName"   = azurerm_cosmosdb_sql_container.contact_container.name
+    "CosmosConfiguration__Database"    = azurerm_cosmosdb_sql_database.contact_db.name
+    "CosmosConfiguration__Container"   = azurerm_cosmosdb_sql_container.contact_container.name
     "WEBSITES_PORT"   = "8080"
   }
 
   site_config { 
     minimum_tls_version = "1.2"
     always_on = false
-  
-    application_stack {
-        docker_registry_username = var.registry_username
-        docker_registry_password = var.registry_password
-        docker_image_name   = var.api_image_name
-        docker_registry_url = var.registry_url
-    } 
+
   }
     identity {
       type = "SystemAssigned"
@@ -124,7 +452,7 @@ resource "azurerm_linux_web_app" "webappapi" {
 }
 
 # Create the role assignment for the web app to access the storage account
-resource "azurerm_role_assignment" "ui_storage_reader" {
+resource "azurerm_role_assignment" "api_storage_reader" {
   scope                = azurerm_storage_account.storageacc.id
   role_definition_name = "Storage Blob Data Reader"
   principal_id         = azurerm_linux_web_app.webappapi.identity[0].principal_id
@@ -143,7 +471,6 @@ resource "azurerm_role_assignment" "api_configuration_reader" {
   principal_id         = azurerm_linux_web_app.webappapi.identity[0].principal_id
 }
 
-
 # Create the az function
 resource "azurerm_linux_function_app" "functionapi" {
   name                = "matheus-portfolio-function-v2"
@@ -155,6 +482,16 @@ resource "azurerm_linux_function_app" "functionapi" {
   service_plan_id            = azurerm_service_plan.functionserviceplan.id
 
   site_config {}
+  identity {
+      type = "SystemAssigned"
+    }
+}
+
+# Create the role assignment for the function to access the storage account
+resource "azurerm_role_assignment" "function_storage_reader" {
+  scope                = azurerm_storage_account.storageacc.id
+  role_definition_name = "Storage Blob Data Reader"
+  principal_id         = azurerm_linux_function_app.functionapi.identity[0].principal_id
 }
 
 # Create Api Management
@@ -329,4 +666,14 @@ resource "azurerm_cosmosdb_sql_container" "contact_container" {
   account_name        = azurerm_cosmosdb_account.portfolio_contact_form.name
   database_name       = azurerm_cosmosdb_sql_database.contact_db.name
   partition_key_paths = ["/id"]
+}
+
+resource "azurerm_cosmosdb_sql_role_assignment" "webapp_cosmos_data_contributor" {
+  name                = "3f67e3a4-3ab3-4f95-9f5c-26f6c0a01234"
+  resource_group_name = azurerm_cosmosdb_account.portfolio_contact_form.resource_group_name
+  account_name        = azurerm_cosmosdb_account.portfolio_contact_form.name
+  # Built-in Cosmos DB Data Contributor role
+  role_definition_id  = "${azurerm_cosmosdb_account.portfolio_contact_form.id}/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002"
+  principal_id        = azurerm_linux_web_app.webappapi.identity[0].principal_id
+  scope               = azurerm_cosmosdb_account.portfolio_contact_form.id
 }
