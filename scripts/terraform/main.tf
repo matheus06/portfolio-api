@@ -35,7 +35,7 @@ resource "azurerm_storage_account" "storageacc" {
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
-
+  
   tags = {
     environment = "portfolio"
   }
@@ -45,7 +45,7 @@ resource "azurerm_storage_account" "storageacc" {
 resource "azurerm_storage_container" "container" {
   name                  = "portfolio-container"
   storage_account_id  = azurerm_storage_account.storageacc.id
-  container_access_type = "private"
+  container_access_type = "blob"
 }
 
 # Upload certAzure.png to the storage container
@@ -480,6 +480,13 @@ resource "azurerm_linux_function_app" "functionapi" {
   storage_account_name       = azurerm_storage_account.storageacc.name
   storage_account_access_key = azurerm_storage_account.storageacc.primary_access_key
   service_plan_id            = azurerm_service_plan.functionserviceplan.id
+
+
+  app_settings = {
+    "BlobConfigurations__AccountName"     = azurerm_storage_account.storageacc.name
+    "BlobConfigurations__ContainerName"   = azurerm_storage_container.container.name
+    "BlobConfigurations__ContainerUrl"    = "https://{0}.blob.core.windows.net/{1}"
+  }
 
   site_config {}
   identity {
