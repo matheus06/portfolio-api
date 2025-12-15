@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/Microservice.Portfolio/Microservice.Portfolio.csproj" />
+  <Project Path="src/Portifolio.FunctionApp/Portifolio.FunctionApp.csproj" />
+</Solution>

@@ -23,7 +23,7 @@ To see the UI app please go to this repo:
 ## Technologies
 
 * C#
-* .NET 7
+* .NET 10
 * Azure App Service
 * Azure Functions
 * Twilio SendGrid
