@@ -685,26 +685,33 @@ resource "azurerm_api_management_policy" "portfolioapipolicy" {
 XML
 }
 
-# resource "azurerm_api_management_api_policy" "portfolioafunctionpolicy" {
+# resource "azurerm_api_management_api_policy" "function_api_policy" {
+#   api_name      = azurerm_api_management_api.functionapi.name
 #   api_management_name = azurerm_api_management.portfolioapimgmt.name
 #   resource_group_name = azurerm_resource_group.rg.name
-#   api_name      = azurerm_api_management_api.functionapi.name
-
+  
 #   xml_content = <<XML
 # <policies>
-#   <inbound>
-#     <base />
-#     <set-backend-service backend-id="${azurerm_api_management_backend.api_function_backend.name}" />
-#   </inbound>
-#   <backend>
-#     <base />
-#   </backend>
-#   <outbound>
-#     <base />
-#   </outbound>
-#   <on-error>
-#     <base />
-#   </on-error>
+#     <!-- Throttle, authorize, validate, cache, or transform the requests -->
+#     <inbound>
+#         <base />
+#         <set-header name="x-functions-key" exists-action="override">
+#             <value>{{matheus-portfolio-function-v2-key}}</value>
+#         </set-header>
+#         <set-backend-service base-url="https://matheus-portfolio-function-v2.azurewebsites.net/api" />
+#     </inbound>
+#     <!-- Control if and how the requests are forwarded to services  -->
+#     <backend>
+#         <base />
+#     </backend>
+#     <!-- Customize the responses -->
+#     <outbound>
+#         <base />
+#     </outbound>
+#     <!-- Handle exceptions and customize error responses  -->
+#     <on-error>
+#         <base />
+#     </on-error>
 # </policies>
 # XML
 # }
