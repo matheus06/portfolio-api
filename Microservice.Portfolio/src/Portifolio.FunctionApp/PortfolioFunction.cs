@@ -100,21 +100,21 @@ namespace Portifolio.FunctionApp
         }
 
 
-        [FunctionName("contact")]
-        [return: SendGrid(ApiKey = "SendGridApiKey")]
-        public async Task<SendGridMessage> PostContact([HttpTrigger(AuthorizationLevel.Function, "post", Route = "contact")] HttpRequest req, ILogger log)
-        {
-            var content = await new StreamReader(req.Body).ReadToEndAsync();
-            var contactRequest = JsonConvert.DeserializeObject<ContactRequest>(content);
-            var msg = new SendGridMessage()
-            {
-                From = new EmailAddress("matheus.sexto@gmail.com", "Matheus Sexto"),
-                Subject = $"{contactRequest.Name} - {contactRequest.Email}",
-                PlainTextContent = $"{contactRequest.Message}"
-            };
-            msg.AddTo(new EmailAddress("matheus.sexto@gmail.com", "Matheus Sexto"));
-            return msg;
-        }
+        // [FunctionName("contact")]
+        // [return: SendGrid(ApiKey = "SendGridApiKey")]
+        // public async Task<SendGridMessage> PostContact([HttpTrigger(AuthorizationLevel.Function, "post", Route = "contact")] HttpRequest req, ILogger log)
+        // {
+        //     var content = await new StreamReader(req.Body).ReadToEndAsync();
+        //     var contactRequest = JsonConvert.DeserializeObject<ContactRequest>(content);
+        //     var msg = new SendGridMessage()
+        //     {
+        //         From = new EmailAddress("matheus.sexto@gmail.com", "Matheus Sexto"),
+        //         Subject = $"{contactRequest.Name} - {contactRequest.Email}",
+        //         PlainTextContent = $"{contactRequest.Message}"
+        //     };
+        //     msg.AddTo(new EmailAddress("matheus.sexto@gmail.com", "Matheus Sexto"));
+        //     return msg;
+        // }
 
         [FunctionName("environment")]
         public IActionResult GetEnvironment([HttpTrigger(AuthorizationLevel.Function, "get", Route = "environment")] HttpRequest req, ILogger log)
