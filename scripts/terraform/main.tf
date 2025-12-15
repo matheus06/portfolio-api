@@ -490,6 +490,10 @@ resource "azurerm_linux_function_app" "functionapi" {
   }
 
  site_config {
+    application_stack {
+      dotnet_version              = "9.0"
+      use_dotnet_isolated_runtime = true
+    }
   }
   identity {
       type = "SystemAssigned"
