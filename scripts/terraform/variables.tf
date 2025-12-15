@@ -55,3 +55,7 @@ variable "shared_app_configuration_name" {
 variable "shared_rg_name" {
   type = string
 }
+
+variable "function_key" {
+  type = string
+}

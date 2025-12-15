@@ -8,7 +8,7 @@ terraform {
    required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 4.5"   # or just "~> 4.0" to stay on 4.x
+      version = "~> 4.56.0"   # or just "~> 4.0" to stay on 4.x
     }
   }
 }
@@ -486,9 +486,15 @@ resource "azurerm_linux_function_app" "functionapi" {
     "BlobConfigurations__AccountName"     = azurerm_storage_account.storageacc.name
     "BlobConfigurations__ContainerName"   = azurerm_storage_container.container.name
     "BlobConfigurations__ContainerUrl"    = "https://{0}.blob.core.windows.net/{1}"
+    "FUNCTIONS_WORKER_RUNTIME"              = "dotnet-isolated"
   }
 
-  site_config {}
+ site_config {
+    application_stack {
+      dotnet_version              = "10.0"
+      use_dotnet_isolated_runtime = true
+    }
+  }
   identity {
       type = "SystemAssigned"
     }
@@ -576,8 +582,22 @@ resource "azurerm_api_management_product_api" "portfolio_public_functionapi" {
   api_name   = azurerm_api_management_api.functionapi.name
 }
 
-resource "azurerm_api_management_api_operation" "hello_get" {
-  operation_id        = "certifications"
+resource "azurerm_api_management_backend" "api_function_backend" {
+  name                = "matheus-portfolio-function-v2-test-backend"
+  resource_group_name = azurerm_resource_group.rg.name
+  api_management_name = azurerm_api_management.portfolioapimgmt.name
+  protocol            = "http"
+  url                 = "https://matheus-portfolio-function-v2.azurewebsites.net/api"
+
+   credentials {
+    header = {
+      "x-functions-key" = var.function_key
+    }
+  }
+}
+
+resource "azurerm_api_management_api_operation" "get_certifications" {
+  operation_id        = "get-certifications"
   api_name            = azurerm_api_management_api.functionapi.name
   api_management_name = azurerm_api_management_api.functionapi.api_management_name
   resource_group_name = azurerm_api_management_api.functionapi.resource_group_name
@@ -664,6 +684,30 @@ resource "azurerm_api_management_policy" "portfolioapipolicy" {
 </policies>
 XML
 }
+
+# resource "azurerm_api_management_api_policy" "portfolioafunctionpolicy" {
+#   api_management_name = azurerm_api_management.portfolioapimgmt.name
+#   resource_group_name = azurerm_resource_group.rg.name
+#   api_name      = azurerm_api_management_api.functionapi.name
+
+#   xml_content = <<XML
+# <policies>
+#   <inbound>
+#     <base />
+#     <set-backend-service backend-id="${azurerm_api_management_backend.api_function_backend.name}" />
+#   </inbound>
+#   <backend>
+#     <base />
+#   </backend>
+#   <outbound>
+#     <base />
+#   </outbound>
+#   <on-error>
+#     <base />
+#   </on-error>
+# </policies>
+# XML
+# }
 
 #Create Cosmos DB Account
 resource "azurerm_cosmosdb_account" "portfolio_contact_form" {

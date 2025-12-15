@@ -100,3 +100,4 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+scripts/terraform/terraform-trace.log
