@@ -582,19 +582,19 @@ resource "azurerm_api_management_product_api" "portfolio_public_functionapi" {
   api_name   = azurerm_api_management_api.functionapi.name
 }
 
-resource "azurerm_api_management_backend" "api_function_backend" {
-  name                = "matheus-portfolio-function-v2-test-backend"
-  resource_group_name = azurerm_resource_group.rg.name
-  api_management_name = azurerm_api_management.portfolioapimgmt.name
-  protocol            = "http"
-  url                 = "https://matheus-portfolio-function-v2.azurewebsites.net/api"
+# resource "azurerm_api_management_backend" "api_function_backend" {
+#   name                = "matheus-portfolio-function-v2-test-backend"
+#   resource_group_name = azurerm_resource_group.rg.name
+#   api_management_name = azurerm_api_management.portfolioapimgmt.name
+#   protocol            = "http"
+#   url                 = "https://matheus-portfolio-function-v2.azurewebsites.net/api"
 
-   credentials {
-    header = {
-      "x-functions-key" = var.function_key
-    }
-  }
-}
+#    credentials {
+#     header = {
+#       "x-functions-key" = var.function_key
+#     }
+#   }
+# }
 
 resource "azurerm_api_management_api_operation" "get_certifications" {
   operation_id        = "get-certifications"

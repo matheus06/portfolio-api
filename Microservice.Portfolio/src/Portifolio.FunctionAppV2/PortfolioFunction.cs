@@ -20,9 +20,7 @@ public class PortfolioFunction(IAzureHelper azureHelper, ILogger<PortfolioFuncti
     {
         string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
-        // Get a credential and create a service client object for the blob container.
         BlobContainerClient containerClient = new(new Uri(containerEndpoint), new DefaultAzureCredential());
-
 
         var listOfResume = new List<Resume>();
         foreach (BlobItem blob in containerClient.GetBlobs(traits: BlobTraits.Metadata, prefix: nameof(Resume).ToLower()))
@@ -40,7 +38,6 @@ public class PortfolioFunction(IAzureHelper azureHelper, ILogger<PortfolioFuncti
         {
             string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
-            // Get a credential and create a service client object for the blob container.
             BlobContainerClient containerClient = new(new Uri(containerEndpoint), new DefaultAzureCredential());
 
             var listOfCertifications = new List<Certification>();
@@ -63,7 +60,6 @@ public class PortfolioFunction(IAzureHelper azureHelper, ILogger<PortfolioFuncti
     {
         string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
-        // Get a credential and create a service client object for the blob container.
         BlobContainerClient containerClient = new(new Uri(containerEndpoint), new DefaultAzureCredential());
 
         var listOfCertifications = new List<Technologies>();
@@ -80,7 +76,6 @@ public class PortfolioFunction(IAzureHelper azureHelper, ILogger<PortfolioFuncti
     {
         string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
-        // Get a credential and create a service client object for the blob container.
         BlobContainerClient containerClient = new(new Uri(containerEndpoint), new DefaultAzureCredential());
 
         var listOfProjects = new List<Projects>();
