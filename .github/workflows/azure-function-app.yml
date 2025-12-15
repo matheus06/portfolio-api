@@ -2,7 +2,7 @@ name: Build and Deploy Azure Function App (API)
 
 env:
   AZURE_FUNCTIONAPP_NAME: matheus-portfolio-function-v2
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: './Microservice.Portfolio/src/Portifolio.FunctionApp/'
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './Microservice.Portfolio/src/Portifolio.FunctionAppV2/'
   DOTNET_VERSION: '8.0.x'
 
 on:
@@ -10,7 +10,7 @@ on:
     branches:
       - main
     paths:
-      - Microservice.Portfolio/src/Portifolio.FunctionApp/**
+      - Microservice.Portfolio/src/Portifolio.FunctionAppV2/**
       - .github/workflows/terraform.yml
 
   workflow_dispatch:

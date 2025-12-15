@@ -1,10 +1,8 @@
 ﻿using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Options;
-using Portifolio.FunctionApp.Helpers;
 using Portifolio.FunctionApp.Helpers.Abstractions;
-using System;
 
-namespace MPortifolio.FunctionApp.Helpers;
+namespace Portifolio.FunctionApp.Helpers;
 
 public class AzureHelper : IAzureHelper
 {
