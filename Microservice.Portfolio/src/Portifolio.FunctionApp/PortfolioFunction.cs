@@ -43,18 +43,26 @@ namespace Portifolio.FunctionApp
         [FunctionName("certifications")]
         public IActionResult GetCertifications([HttpTrigger(AuthorizationLevel.Function, "get", Route = "certifications")] HttpRequest req, ILogger log)
         {
-            string containerEndpoint = _azureHelper.GetBlobContainerUri();
-
-            // Get a credential and create a service client object for the blob container.
-            BlobContainerClient containerClient = new(new Uri(containerEndpoint), new DefaultAzureCredential());
-
-            var listOfCertifications = new List<Certification>();
-            foreach (BlobItem blob in containerClient.GetBlobs(traits: BlobTraits.Metadata, prefix: nameof(Certification).ToLower()))
+            try
             {
-                listOfCertifications.Add(new Certification() { Name = _azureHelper.GetMetadataValue(blob, nameof(Certification.Name)), ImageUrl = $"{containerClient.Uri}/{blob.Name}", BadgeUrl = _azureHelper.GetMetadataValue(blob, nameof(Certification.BadgeUrl)) });
-            }
+                string containerEndpoint = _azureHelper.GetBlobContainerUri();
 
-            return new OkObjectResult(listOfCertifications);
+                // Get a credential and create a service client object for the blob container.
+                BlobContainerClient containerClient = new(new Uri(containerEndpoint), new DefaultAzureCredential());
+
+                var listOfCertifications = new List<Certification>();
+                foreach (BlobItem blob in containerClient.GetBlobs(traits: BlobTraits.Metadata, prefix: nameof(Certification).ToLower()))
+                {
+                    listOfCertifications.Add(new Certification() { Name = _azureHelper.GetMetadataValue(blob, nameof(Certification.Name)), ImageUrl = $"{containerClient.Uri}/{blob.Name}", BadgeUrl = _azureHelper.GetMetadataValue(blob, nameof(Certification.BadgeUrl)) });
+                }
+
+                return new OkObjectResult(listOfCertifications);
+            }
+            catch (Exception ex)
+            {
+                log.LogError(ex, "Error retrieving certifications");
+                return new ObjectResult(ex.Message) { StatusCode = 500 };
+            }
         }
 
         [FunctionName("technologies")]
